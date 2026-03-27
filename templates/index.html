@@ -2,18 +2,80 @@
 <html>
 <head>
     <title>BreachGuard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+        }
+
+        input {
+            padding: 10px;
+            width: 90%;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            width: 100%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .safe {
+            color: #22c55e;
+        }
+
+        .breach {
+            color: #ef4444;
+        }
+    </style>
 </head>
-<body style="text-align:center; margin-top:50px;">
 
-    <h1>🔐 BreachGuard</h1>
+<body>
+    <div class="container">
+        <h2>🔐 BreachGuard</h2>
 
-    <form method="POST">
-        <input type="email" name="email" placeholder="Enter email" required>
-        <br><br>
-        <button type="submit">Check</button>
-    </form>
+        <form method="POST">
+            <input type="email" name="email" placeholder="Enter email" required>
+            <button type="submit">Check</button>
+        </form>
 
-    <h2>{{ result }}</h2>
-
+        {% if result %}
+            <div class="result 
+                {% if 'Safe' in result %} safe 
+                {% else %} breach 
+                {% endif %}">
+                {{ result }}
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
