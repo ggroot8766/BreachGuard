@@ -149,14 +149,9 @@
 </html>
         </form>
 
-        {% if result %}
-            <div class="result 
-                {% if 'Safe' in result %} safe 
-                {% else %} breach 
-                {% endif %}">
-                {% if result %}
-                <div class="result">
-                    {{ result }}
+        {% if result is defined %}
+            <div class="result">
+                {{ result }}
             </div>
         {% endif %}
     </div>
