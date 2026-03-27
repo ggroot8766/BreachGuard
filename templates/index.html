@@ -33,133 +33,57 @@
         button {
             padding: 10px;
             width: 100%;
-            background: #3b82f6;
-            color: white;
             border: none;
             border-radius: 5px;
+            background: #38bdf8;
+            color: black;
+            font-weight: bold;
             cursor: pointer;
         }
 
         button:hover {
-            background: #2563eb;
+            background: #0ea5e9;
         }
 
         .result {
             margin-top: 15px;
-            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
         }
 
         .safe {
-            color: #22c55e;
+            background: green;
         }
 
-        .breach {
-            color: #ef4444;
+        .breached {
+            background: red;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>🔐 BreachGuard</h2>
 
-        <form method="POST">
-            <input type="email" name="email" placeholder="Enter email" required>
-            <!DOCTYPE html>
-<html>
-<head>
-    <title>BreachGuard</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #0f172a;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<div class="container">
+    <h2>🔐 BreachGuard</h2>
 
-        .container {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            width: 300px;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-        }
+    <form method="POST">
+        <input type="email" name="email" placeholder="Enter email" required>
+        <button type="submit">Check</button>
+    </form>
 
-        input {
-            padding: 10px;
-            width: 90%;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            padding: 10px;
-            width: 100%;
-            background: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #2563eb;
-        }
-
-        .result {
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        .safe {
-            color: #22c55e;
-        }
-
-        .breach {
-            color: #ef4444;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h2>🔐 BreachGuard</h2>
-
-        <form method="POST">
-            <input type="email" name="email" placeholder="Enter email" required>
-            <button type="submit" onclick="showLoading()">Check</button>
-<p id="loading" style="display:none;">🔍 Checking breach...</p>
-        </form>
-
-        {% if result %}
-            <div class="result 
-                {% if 'Safe' in result %} safe 
-                {% else %} breach 
-                {% endif %}">
+    {% if result is defined %}
+        {% if "breach" in result.lower() %}
+            <div class="result breached">
+                {{ result }}
+            </div>
+        {% else %}
+            <div class="result safe">
                 {{ result }}
             </div>
         {% endif %}
-    </div>
-</body>
-</html>
-        </form>
+    {% endif %}
 
-        {% if result is defined %}
-            <div class="result">
-                {{ result }}
-            </div>
-        {% endif %}
-    </div>
-        <script>
-            function showLoading() {
-                  document.getElementById("loading").style.display = "block";
-                }
-        </script>
-        
+</div>
+
 </body>
 </html>
