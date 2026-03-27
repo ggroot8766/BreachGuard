@@ -71,7 +71,7 @@
         <button type="submit">Check</button>
     </form>
 
-    {% if result is defined %}
+    {% if result %}
         {% if "no breach" in result.lower() %}
             <div class="result safe">
                 {{ result }}
