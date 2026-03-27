@@ -73,7 +73,9 @@
                 {% if 'Safe' in result %} safe 
                 {% else %} breach 
                 {% endif %}">
-                {{ result }}
+                {% if result %}
+                <div class="result">
+                    {{ result }}
             </div>
         {% endif %}
     </div>
