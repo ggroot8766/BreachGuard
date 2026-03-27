@@ -2,10 +2,11 @@
 <html>
 <head>
     <title>BreachGuard</title>
+
     <style>
         body {
             font-family: Arial;
-            background: #0f172a;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             color: white;
             display: flex;
             justify-content: center;
@@ -16,48 +17,91 @@
         .container {
             background: #1e293b;
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 15px;
             text-align: center;
-            width: 300px;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+            width: 320px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.6);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        h2 {
+            margin-bottom: 15px;
         }
 
         input {
-            padding: 10px;
+            padding: 12px;
             width: 90%;
             border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            outline: none;
         }
 
         button {
-            padding: 10px;
+            padding: 12px;
             width: 100%;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             background: #38bdf8;
             color: black;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
         }
 
         button:hover {
             background: #0ea5e9;
+            transform: scale(1.03);
+        }
+
+        button:disabled {
+            background: gray;
+            cursor: not-allowed;
         }
 
         .result {
             margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            animation: slideUp 0.4s ease;
         }
 
         .safe {
-            background: green;
+            background: #16a34a;
         }
 
         .breached {
-            background: red;
+            background: #dc2626;
         }
+
+        /* Loader Spinner */
+        .loader {
+            border: 4px solid #334155;
+            border-top: 4px solid #38bdf8;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            margin: 10px auto;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 
@@ -68,22 +112,37 @@
 
     <form method="POST">
         <input type="email" name="email" placeholder="Enter email" required>
-        <button type="submit">Check</button>
+        <button type="submit" id="checkBtn">Check</button>
     </form>
 
+    <!-- Loader -->
+    <div class="loader" id="loader"></div>
+
+    <!-- Result -->
     {% if result %}
         {% if "no breach" in result.lower() %}
             <div class="result safe">
-                {{ result }}
+                ✅ {{ result }}
             </div>
         {% else %}
             <div class="result breached">
-                {{ result }}
+                ⚠️ {{ result }}
             </div>
         {% endif %}
     {% endif %}
-
 </div>
+
+<script>
+    const form = document.querySelector("form");
+    const loader = document.getElementById("loader");
+    const btn = document.getElementById("checkBtn");
+
+    form.addEventListener("submit", () => {
+        loader.style.display = "block";
+        btn.disabled = true;
+        btn.innerText = "Checking...";
+    });
+</script>
 
 </body>
 </html>
