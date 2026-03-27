@@ -72,12 +72,12 @@
     </form>
 
     {% if result is defined %}
-        {% if "breach" in result.lower() %}
-            <div class="result breached">
+        {% if "no breach" in result.lower() %}
+            <div class="result safe">
                 {{ result }}
             </div>
         {% else %}
-            <div class="result safe">
+            <div class="result breached">
                 {{ result }}
             </div>
         {% endif %}
